@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+ <meta charset="UTF-8">
+ <title>Produtos</title>
+ <style>
+ body { font-family: Arial, sans-serif; margin: 40px; }
+ table { width: 100%; border-collapse: collapse; }
+ th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+ th { background-color: #f2f2f2; }
+ .btn { display: inline-block; padding: 10px 15px; background-color: #007BFF; color: white; textdecoration: none; border-radius: 5px; margin-bottom: 20px; }
+ .actions a { margin-right: 10px; }
+ </style>
+</head>
+<body>
+ <h1>Lista de Produtos</h1>
+ <a href="{% url 'estoque:adicionar'%}" class="btn">+ Adicionar Novo Documento</a>
+ <table>
+<thead>
+ <tr>
+ <th>Nome</th>
+ <th>Marca</th>
+ <th>Valor</th>
+ <th>Quantidade</th>
+ <th>ID</th>
+ <th>Ações</th>
+ </tr>
+ </thead>
+ <tbody>
+ {% for produto in produtos %}
+ <tr>
+ <td>{{ produto.nome }}</td>
+ <td>{{ produto.marca }}</td>
+ <td>{{ produto.valor }}</td>
+ <td>{{ produto.quantidade }}</td>
+ <td>{{ produto.id }}</td>
+ <td class="actions">
+ <a href="{% url 'estoque:editar' produto.id %}">Editar</a>
+ <a href="{% url 'estoque:excluir' produto.id %}">Excluir</a>
+ </td>
+ </tr>
+ {% empty %}
+ <tr>
+ <td colspan="6">Nenhum Produto cadastrado ainda.</td>
+ </tr>
+ {% endfor %}
+ </tbody>
+ </table>
+</body>
+</html>

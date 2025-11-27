@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+ <meta charset="UTF-8">
+ <title>Confirmar Exclusão</title>
+ <style> body { font-family: Arial, sans-serif; margin: 40px; } </style>
+</head>
+<body>
+ <h1>Atenção!</h1>
+ <p>Você tem certeza que deseja excluir <strong>{{ produto.nome }}</strong>?</p>
+ <p>Esta ação não pode ser desfeita.</p>
+<form method="POST">
+ {% csrf_token %}
+ <button type="submit" style="background-color: #dc3545;">Sim, excluir
+permanentemente</button>
+ <a href="{% url 'estoque:lista' %}">Cancelar</a>
+ </form>
+</body>
+</html>
