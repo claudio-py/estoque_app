@@ -8,12 +8,13 @@
 <body>
  <h1>Lista de Produtos</h1>
 <div class="btn-box">
- <a href="{% url 'estoque:adicionar'%}" class="btn">+ Adicionar Novo Documento</a>
 {%if user.is_authenticated%}
+ <a href="{% url 'estoque:adicionar'%}" class="btn">+ Adicionar Novo Documento</a>
 <form method="post" action="{%url 'users:logout'%}">{%csrf_token%}
 <button style="background-color: darkred;" type="submit">Logout</button>
 </form>
 {%else%}
+ <a href="{% url 'users:login' %}" style="background-color: grey;opacity:.3;" class="btn">+ Adicionar Novo Documento</a>
 <a href="{% url 'users:login' %}" >
   <button style="background-color: darkgreen;" type="button">Login</button>
 </a>
@@ -39,8 +40,12 @@
  <td>{{ produto.quantidade }}</td>
  <td>{{ produto.id }}</td>
  <td class="actions">
+{%if user.is_authenticated%}
  <a href="{% url 'estoque:editar' produto.id %}">Editar</a>
  <a href="{% url 'estoque:excluir' produto.id %}">Excluir</a>
+{%else%}
+<p>Login para habilitar ações </p>
+{%endif%}
  </td>
  </tr>
  {% empty %}

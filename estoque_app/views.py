@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import Produto
 
@@ -16,6 +17,7 @@ def lista(request):
     return render(request, "estoque_app/lista/index.html", contexto)
 
 
+@login_required
 def adicionar(request):
     if request.method == "POST":
         # pega os dados do formulario
@@ -32,6 +34,7 @@ def adicionar(request):
     return render(request, "estoque_app/form_add/index.html")
 
 
+@login_required
 def editar(request, pk):
     # busca o carro especifico pelo seu id(pk)
     produto = Produto.objects.get(id=pk)
@@ -49,6 +52,7 @@ def editar(request, pk):
     return render(request, "estoque_app/form_edit/index.html", contexto)
 
 
+@login_required
 def excluir(request, pk):
     produto = Produto.objects.get(id=pk)
     if request.method == "POST":  # Se o formulario de confirmacao for enviado
