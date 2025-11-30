@@ -1,0 +1,85 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 40px;
+  background: linear-gradient(71.17deg, #FEAF00 19.35%, #F8D442 90.12%);
+}
+
+/* centralize .form class in the midle of the screen as a card */
+.form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: auto;
+}
+
+.title {
+  font-size: 2rem;
+  /* your h1 size */
+  line-height: 1.2;
+  /* typical line-height */
+  display: flex;
+  /* so the bar aligns to the text height */
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.title .bar {
+  width: 5px;
+  /* thickness of the rectangle */
+  height: 50px;
+  /* matches the height of the h1 line box */
+  background: linear-gradient(71.17deg, #FEAF00 19.35%, #F8D442 90.12%);
+  display: inline-block;
+  /* border: 1px, solid, red; */
+}
+
+/* Sign In */
+
+.subtitle {
+  /*   font-family: 'Montserrat'; */
+  align-self: center;
+  /*   font-style: normal; */
+  font-weight: 600;
+  font-size: 22px;
+  /* line-height: 27px; */
+  /* margin-bottom: -1px; */
+}
+
+.discription {
+  color: #6C6C6C;
+  margin-top: -5px;
+}
+
+.subtitle-block {
+  display: flex;
+  /* border: 1px, solid, red; */
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+button {
+  width: 100%;
+  height: 44px;
+  background: #FEAF00;
+  border: 1px solid #000000;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  margin-block: 20px;
+}
+
+.fields input {
+  /* width: 100%; */
+  height: 30px;
+}
+
+.fields label {
+  margin-bottom: 10px;
+}

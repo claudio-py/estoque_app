@@ -3,14 +3,29 @@
 <head>
  <meta charset="UTF-8">
  <title>Login</title>
- <style> body { font-family: Arial, sans-serif; margin: 40px; } </style>
+{% load static %} <link rel="stylesheet" href="{% static 'users/login.css' %}">
 </head>
 <body>
-<h1>LOGIN</h1>
+<div class="form">
+<h1 class="title">
+  <span class="bar"></span>
+  Estoque Admin
+</h1>
+<div class="subtitle-block">
+<p class="subtitle">SIGN IN</p>
+<p class="discription">Entre suas credenciais para logar</p>
+</div>
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+{%for field in form%}
+<div class="fields">
+<label>{{field.label}}</label>
+{{field}}
+</div>
+{%endfor%}
+    <!-- {{ form.as_p }} -->
     <button type="submit">Entrar</button>
 </form>
+</div>
 </body>
 </html>

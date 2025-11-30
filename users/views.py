@@ -1,12 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import FormView
-from .forms import RegisterUserForm
+from .forms import RegisterUserForm, CustomLoginForm
 
 
 # Create your views here.
 class Login(LoginView):
     template_name = "users/login/index.html"
+    form_class = CustomLoginForm
     success_url = "/"
 
 
