@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Produtos</title>
         {% load static %}
+        <!-- Carrega o arquivo de estilos CSS para a lista de produtos -->
         <link rel="stylesheet" href="{% static 'estoque_app/lista.css' %}">
     </head>
     <body>
@@ -12,23 +13,28 @@
         </div>
         <div class="btn-box">
             {% if user.is_authenticated %}
+                <!-- Botão para adicionar novo produto (visível apenas para usuários autenticados) -->
                 <a href="{% url 'estoque:adicionar' %}"
                    style="background-color: #feaf00"
                    class="btn">+ Adicionar Novo Produto</a>
+                <!-- Formulário para logout -->
                 <form method="post" action="{% url 'users:logout' %}">
                     {% csrf_token %}
                     <button style="background-color: darkred;" type="submit">Logout</button>
                     {% if user.is_superuser %}
+                        <!-- Botão para registrar novo usuário (apenas para superusuário) -->
                         <a href="{% url 'users:register' %}">
                             <button style="background-color: #feaf00" type="button">Registrar</button>
                         </a>
                     {% endif %}
                 </form>
             {% else %}
+                <!-- Botão de adicionar produto desabilitado para usuários não autenticados -->
                 <a href="{% url 'users:login' %}"
                    style="background-color: grey;
                           opacity:.3"
                    class="btn">+ Adicionar Novo Produto</a>
+                <!-- Botão para login -->
                 <a href="{% url 'users:login' %}">
                     <button style="background-color: darkgreen;" type="button">Login</button>
                 </a>
@@ -53,11 +59,13 @@
                 <tr>
                     <td style= "padding:0;">
                         {% if produto.imagem %}
+                            <!-- Exibe a imagem do produto, se houver -->
                             <img src="{{ produto.imagem.url }}"
                                  alt="{{ produto.nome }}"
                                  style="max-width:80px;
                                         max-height:80px">
                         {% else %}
+                            <!-- Mensagem caso o produto não tenha imagem -->
                             <span>Sem imagem</span>
                         {% endif %}
                     </td>
@@ -68,21 +76,25 @@
                     <td>{{ produto.id }}</td>
                     <td class="actions">
                         {% if user.is_authenticated %}
+                            <!-- Botão para editar produto -->
                             <a href="{% url 'estoque:editar' produto.id %}">
                                 {% load static %}
                                 <img src="{% static 'estoque_app/img/pen.svg' %}">
                             </a>
+                            <!-- Botão para excluir produto (abre modal de confirmação) -->
                             <a href="#"
                                onclick="openDeleteModal('{{ produto.id }}', '{{ produto.nome }}'); return false;">
                                 {% load static %}
                                 <img src="{% static 'estoque_app/img/trash.svg' %}">
                             </a>
                         {% else %}
+                            <!-- Mensagem para usuários não autenticados -->
                             <p>Login para habilitar ações</p>
                         {% endif %}
                     </td>
                 </tr>
             {% empty %}
+                <!-- Mensagem exibida caso não haja produtos cadastrados -->
                 <tr>
                     <td colspan="6">Nenhum Produto cadastrado ainda.</td>
                 </tr>
@@ -90,6 +102,7 @@
         </tbody>
     </table>
     {% if user.is_authenticated %}
+        <!-- Modal de confirmação para exclusão de produto -->
         <div id="deleteModal" class="modal" style="display:none;">
             <div class="modal-content">
                 <h2>Atenção!</h2>
@@ -106,17 +119,19 @@
         </div>
     {% endif %}
     <script>
+    // Função para abrir o modal de exclusão e preencher os dados do produto
     function openDeleteModal(produtoId, produtoNome) {
-        // Update product name inside modal
+        // Atualiza o nome do produto no modal
         document.getElementById('modalProdutoNome').textContent = produtoNome;
 
-        // Update delete URL in the form
+        // Atualiza a URL de exclusão no formulário
         const form = document.getElementById('modalForm');
         form.action = `/excluir/${produtoId}/`;
-        // Show modal
+        // Exibe o modal
         document.getElementById('deleteModal').style.display = 'block';
     }
 
+    // Função para fechar o modal de exclusão
     function closeModal() {
         document.getElementById('deleteModal').style.display = 'none';
     }

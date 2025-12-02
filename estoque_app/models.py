@@ -1,7 +1,7 @@
 from django.db import models
 
 
-# Create your models here.
+# Modelos do aplicativo de estoque
 class Produto(models.Model):
     nome = models.CharField(max_length=10, unique=True)
     marca = models.CharField(max_length=10, unique=True)
