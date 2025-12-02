@@ -34,6 +34,7 @@ class RegisterUserForm(UserCreationForm):
         label="Confirmar"
     )
 
+
     class Meta:
         model = User
         fields = ("username", "password1", "password2")
