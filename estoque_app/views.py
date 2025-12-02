@@ -21,6 +21,8 @@ class Adicionar(View):
         nome = request.POST.get("nome")
         marca = request.POST.get("marca")
         valor = request.POST.get("valor")
+        if valor:
+            valor = float(valor.replace(",", "."))
         quantidade = request.POST.get("quantidade")
         imagem = request.FILES.get("imagem")
         Produto.objects.create(
@@ -43,8 +45,10 @@ class Editar(View):
         produto = Produto.objects.get(id=pk)
         produto.nome = request.POST.get("nome")
         produto.marca = request.POST.get("marca")
-        produto.valor = request.POST.get("valor")
-        produto.quantidade = request.POST.get("quantidade")
+        valor = request.POST.get("valor")
+        if valor:
+            valor = float(valor.replace(",", "."))
+            produto.valor = valor
         imagem = request.FILES.get("imagem")
         if imagem:
             if produto.imagem:
