@@ -27,10 +27,11 @@ Siga o passo a passo abaixo para clonar e executar o projeto localmente:
     - Realizar as migrações para criar o banco de dados:
     - Criar um superusuário para acessar o painel administrativo:(esteja atento para interagir com o terminal nessa tarefa)
     - Executar o servidor de desenvolvimento:
+   ```
+  pyhton setup.py
    ```bash
   pyhton setup.py
-   ```
-
+``` 
 
 3. **Acesse a aplicação:**
    - Abra o navegador e acesse a URL fornecida pelo Django (geralmente http://127.0.0.1:8000/).
