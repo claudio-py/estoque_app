@@ -20,7 +20,7 @@ Siga o passo a passo abaixo para clonar e executar o projeto localmente:
    cd <nome_da_pasta_do_projeto>
    ```
 
-2. ** Rode o script de build da aplicação para automaticamente: **
+2. **Rode o script de build da aplicação para automaticamente:**
 - - Criar um ambiente virtual Python na raiz do projeto:
 - - Ativar o ambiente virtual:
 - - Instalar as dependências:
