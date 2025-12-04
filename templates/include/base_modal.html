@@ -1,0 +1,18 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'base_list/css/modal.css' %}">
+<div id="deleteModal" class="modal" style="display: none">
+    <div class="modal-content">
+        <h2>Atenção!</h2>
+        <p>
+            Você tem certeza que deseja excluir
+            <strong id="modalNome"></strong>?
+        </p>
+        <p>Esta ação não pode ser desfeita.</p>
+        <form id="modalForm" method="POST">
+            {% csrf_token %}
+            <button class="del-btn" type="submit">Sim, excluir permanentemente</button>
+            <button type="button" onclick="closeModal()">Cancelar</button>
+        </form>
+    </div>
+</div>
+<script src="{% static 'base_list/js/script.js' %}"></script>

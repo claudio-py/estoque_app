@@ -1,110 +1,97 @@
+{% extends "base_list.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <title>Produtos</title>
-        <!-- Carrega o arquivo de estilos CSS para a lista de produtos -->
-        <link rel="stylesheet"
-              href="{% static 'estoque_app/lista/css/styles.css' %}">
-        <link rel="stylesheet"
-              href="{% static 'estoque_app/lista/css/modal.css' %}">
-    </head>
-    <body>
-        <div class = "main-title">
-            <h1>Lista de Produtos</h1>
-        </div>
-        <div class="btn-box">
-            {% if user.is_authenticated %}
-                <!-- Botão para adicionar novo produto (visível apenas para usuários autenticados) -->
-                <a href="{% url 'estoque:adicionar' %}"
-                   style="background-color: #feaf00"
-                   class="btn">+ Adicionar Novo Produto</a>
-                <!-- Formulário para logout -->
-                <form method="post" action="{% url 'users:logout' %}">
-                    {% csrf_token %}
-                    <button style="background-color: darkred;" type="submit">Logout</button>
-                    {% if user.is_superuser %}
-                        <!-- Botão para registrar novo usuário (apenas para superusuário) -->
-                        <a href="{% url 'users:register' %}">
-                            <button style="background-color: #feaf00" type="button">Registrar</button>
-                        </a>
-                    {% endif %}
-                </form>
-            {% else %}
-                <!-- Botão de adicionar produto desabilitado para usuários não autenticados -->
-                <a href="{% url 'users:login' %}"
-                   style="background-color: grey;
-                          opacity:.3"
-                   class="btn">+ Adicionar Novo Produto</a>
-                <!-- Botão para login -->
-                <a href="{% url 'users:login' %}">
-                    <button style="background-color: darkgreen;" type="button">Login</button>
-                </a>
-            {% endif %}
-        </div>
-        <hr>
-    </hr>
-    <table>
-        <thead>
+{% block content %}
+    <div class = "main-title">
+        <h1>Lista de Produtos</h1>
+    </div>
+    <div class="btn-box">
+        {% if user.is_authenticated %}
+            <!-- Botão para adicionar novo produto (visível apenas para usuários autenticados) -->
+            <a href="{% url 'estoque:adicionar' %}"
+               style="background-color: #feaf00"
+               class="btn">+ Adicionar Novo Produto</a>
+            <!-- Formulário para logout -->
+            <form method="post" action="{% url 'users:logout' %}">
+                {% csrf_token %}
+                <button style="background-color: darkred;" type="submit">Logout</button>
+                {% if user.is_superuser %}
+                    <a href="{% url 'users:list' %}"
+                       class="btn"
+                       style="background-color:#feaf00">Lista de Usuários</a>
+                {% endif %}
+            </form>
+        {% else %}
+            <!-- Botão de adicionar produto desabilitado para usuários não autenticados -->
+            <a href="{% url 'users:login' %}"
+               style="background-color: grey;
+                      opacity:.3"
+               class="btn">+ Adicionar Novo Produto</a>
+            <!-- Botão para login -->
+            <a href="{% url 'users:login' %}">
+                <button style="background-color: darkgreen;" type="button">Login</button>
+            </a>
+        {% endif %}
+    </div>
+    <hr>
+</hr>
+<table>
+    <thead>
+        <tr>
+            <th>imagem</th>
+            <th>Nome</th>
+            <th>Marca</th>
+            <th>Valor</th>
+            <th>Quantidade</th>
+            <th>ID</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for produto in produtos %}
             <tr>
-                <th>image</th>
-                <th>Nome</th>
-                <th>Marca</th>
-                <th>Valor</th>
-                <th>Quantidade</th>
-                <th>ID</th>
-                <th>Ações</th>
+                <td style= "padding:0;">
+                    {% if produto.imagem %}
+                        <!-- Exibe a imagem do produto, se houver -->
+                        <img src="{{ produto.imagem.url }}"
+                             alt="{{ produto.nome }}"
+                             style="max-width:80px;
+                                    max-height:80px">
+                    {% else %}
+                        <!-- Mensagem caso o produto não tenha imagem -->
+                        <span>Sem imagem</span>
+                    {% endif %}
+                </td>
+                <td>{{ produto.nome }}</td>
+                <td>{{ produto.marca }}</td>
+                <td>{{ produto.valor }}</td>
+                <td>{{ produto.quantidade }}</td>
+                <td>{{ produto.id }}</td>
+                <td class="actions">
+                    {% if user.is_authenticated %}
+                        <!-- Botão para editar produto -->
+                        <a href="{% url 'estoque:editar' produto.id %}">
+                            <img src="{% static 'estoque_app/img/pen.svg' %}">
+                        </a>
+                        <!-- Botão para excluir produto (abre modal de confirmação) -->
+                        <a href="#"
+                           onclick="openDeleteModal('{{ produto.id }}', '{{ produto.nome }}'); return false;">
+                            <img src="{% static 'estoque_app/img/trash.svg' %}">
+                        </a>
+                    {% else %}
+                        <!-- Mensagem para usuários não autenticados -->
+                        <p>Login para habilitar ações</p>
+                    {% endif %}
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            {% for produto in produtos %}
-                <tr>
-                    <td style= "padding:0;">
-                        {% if produto.imagem %}
-                            <!-- Exibe a imagem do produto, se houver -->
-                            <img src="{{ produto.imagem.url }}"
-                                 alt="{{ produto.nome }}"
-                                 style="max-width:80px;
-                                        max-height:80px">
-                        {% else %}
-                            <!-- Mensagem caso o produto não tenha imagem -->
-                            <span>Sem imagem</span>
-                        {% endif %}
-                    </td>
-                    <td>{{ produto.nome }}</td>
-                    <td>{{ produto.marca }}</td>
-                    <td>{{ produto.valor }}</td>
-                    <td>{{ produto.quantidade }}</td>
-                    <td>{{ produto.id }}</td>
-                    <td class="actions">
-                        {% if user.is_authenticated %}
-                            <!-- Botão para editar produto -->
-                            <a href="{% url 'estoque:editar' produto.id %}">
-                                <img src="{% static 'estoque_app/img/pen.svg' %}">
-                            </a>
-                            <!-- Botão para excluir produto (abre modal de confirmação) -->
-                            <a href="#"
-                               onclick="openDeleteModal('{{ produto.id }}', '{{ produto.nome }}'); return false;">
-                                <img src="{% static 'estoque_app/img/trash.svg' %}">
-                            </a>
-                        {% else %}
-                            <!-- Mensagem para usuários não autenticados -->
-                            <p>Login para habilitar ações</p>
-                        {% endif %}
-                    </td>
-                </tr>
-            {% empty %}
-                <!-- Mensagem exibida caso não haja produtos cadastrados -->
-                <tr>
-                    <td colspan="6">Nenhum Produto cadastrado ainda.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% if user.is_authenticated %}
-        {% include 'estoque_app/lista/modal.html' %}
-    {% endif %}
-    <script src="{% static 'estoque_app/lista/js/script.js' %}"></script>
-</body>
-</html>
+        {% empty %}
+            <!-- Mensagem exibida caso não haja produtos cadastrados -->
+            <tr>
+                <td colspan="6">Nenhum Produto cadastrado ainda.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% block modal_permition %}
+    {% if user.is_authenticated %}<script>window.modalEnabled = true;</script>{% endif %}
+{% endblock %}
+{% endblock %}

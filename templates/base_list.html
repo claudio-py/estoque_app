@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <title>
+            {% block title %}{% endblock %}
+        </title>
+        <!-- Carrega o arquivo de estilos CSS -->
+        <link rel="stylesheet" href="{% static 'base_list/styles.css' %}" {% block extra_css %}{% endblock %}
+        </head>
+        <body>
+            {% block content %}{% endblock %}
+            {% block modal_permition %}{% endblock %}
+            {% include "include/base_modal.html" %}
+        </body>
+    </html>

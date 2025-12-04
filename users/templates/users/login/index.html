@@ -1,31 +1,27 @@
+{% extends "base_form.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <title>Login</title>
-        <link rel="stylesheet" href="{% static 'users/login.css' %}">
-    </head>
-    <body>
-        <div class="form">
-            <h1 class="title">
-                <span class="bar"></span>
-                Estoque Admin
-            </h1>
-            <div class="subtitle-block">
-                <p class="subtitle">SIGN IN</p>
-                <p class="discription">Entre suas credenciais para logar</p>
-            </div>
-            <form method="post">
-                {% csrf_token %}
-                {% for field in form %}
-                    <div class="fields">
-                        <label>{{ field.label }}</label>
-                        {{ field }}
-                    </div>
-                {% endfor %}
-                <button type="submit">Entrar</button>
-            </form>
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'users/login.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="form">
+        <h1 class="title">
+            <span class="bar"></span>
+            Estoque Admin
+        </h1>
+        <div class="subtitle-block">
+            <p class="subtitle">SIGN IN</p>
+            <p class="discription">Entre suas credenciais para logar</p>
         </div>
-    </body>
-</html>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="fields">
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+{% endblock %}

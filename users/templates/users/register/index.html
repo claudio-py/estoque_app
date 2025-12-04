@@ -1,37 +1,33 @@
+{% extends "base_form.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <title>Cadastro</title>
-        <link rel="stylesheet" href="{% static 'users/register/css/styles.css' %}">
-        <link rel="stylesheet" href="{% static 'users/register/css/modal.css' %}">
-    </head>
-    <body>
-        <div class="form">
-            <h1 class="title">
-                <span class="bar"></span>
-                Estoque Admin
-            </h1>
-            <div class="subtitle-block">
-                <p class="subtitle">SIGN UP</p>
-                <p class="discription">Digite os dados do novo usuário</p>
-            </div>
-            <form method="post">
-                {% csrf_token %}
-                {% for field in form %}
-                    <div class="fields">
-                        <label>{{ field.label }}</label>
-                        {{ field }}
-                        {% if field.errors %}<div style="color: red;">{{ field.errors }}</div>{% endif %}
-                    </div>
-                {% endfor %}
-                <button type="submit">Registar</button>
-            </form>
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'users/register/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'users/register/css/modal.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="form">
+        <h1 class="title">
+            <span class="bar"></span>
+            Estoque Admin
+        </h1>
+        <div class="subtitle-block">
+            <p class="subtitle">SIGN UP</p>
+            <p class="discription">Digite os dados do novo usuário</p>
         </div>
-        {% if registered %}
-            {% include 'users/register/modal.html' %}
-            <script src="{% static 'users/register/js/script.js' %}"></script>
-        {% endif %}
-    </body>
-</html>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="fields">
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}<div style="color: red;">{{ field.errors }}</div>{% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit">Registar</button>
+        </form>
+    </div>
+    {% if registered %}
+        {% include 'users/register/modal.html' %}
+        <script src="{% static 'users/register/js/script.js' %}"></script>
+    {% endif %}
+{% endblock %}

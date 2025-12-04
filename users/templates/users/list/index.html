@@ -1,0 +1,67 @@
+{% extends "base_list.html" %}
+{% load static %}
+{% block content %}
+    <div class="main-title">
+        <h1>Lista de Usuários</h1>
+    </div>
+    <div class="btn-box">
+        {% if user.is_authenticated %}
+            <!-- Botão para adicionar novo produto (visível apenas para usuários autenticados) -->
+            <a href="{% url 'users:register' %}"
+               style="background-color: #feaf00"
+               class="btn">+ Registrar Usuário</a>
+            <!-- Formulário para logout -->
+            <form method="post" action="{% url 'users:logout' %}">
+                {% csrf_token %}
+                <button style="background-color: darkred;" type="submit">Logout</button>
+                {% if user.is_superuser %}
+                    <a href="{% url 'estoque:lista' %}"
+                       class="btn"
+                       style="background-color:#feaf00">Lista de Produtos</a>
+                {% endif %}
+            </form>
+        {% else %}
+            <!-- Botão de adicionar produto desabilitado para usuários não autenticados -->
+            <a href="{% url 'users:login' %}"
+               style="background-color: grey;
+                      opacity:.3"
+               class="btn">+ Adicionar Novo Produto</a>
+            <!-- Botão para login -->
+            <a href="{% url 'users:login' %}">
+                <button style="background-color: darkgreen;" type="button">Login</button>
+            </a>
+        {% endif %}
+    </div>
+    <hr>
+</hr>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for u in users %}
+            <tr>
+                <td>{{ u.id }}</td>
+                <td>{{ u.username }}</td>
+                <td class="actions">
+                    <a href="#"
+                       onclick="openDeleteModal('{{ u.id }}', '{{ u.username }}'); return false;">
+                        <img src="{% static 'estoque_app/img/trash.svg' %}">
+                    </a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3">Nenhum usuário encontrado.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% block modal_permition %}
+    {% if user.is_authenticated %}<script>window.modalEnabled = true;</script>{% endif %}
+{% endblock %}
+{% endblock %}

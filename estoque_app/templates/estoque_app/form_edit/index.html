@@ -1,67 +1,64 @@
+{% extends "base_form.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <title>Editar Produto</title>
-        <link rel="stylesheet" href="{% static 'estoque_app/form_edit.css' %}">
-    </head>
-    <body>
-        <div class="form">
-            <div class="text-box">
-                <h1>
-                    <span class="bar"></span>Editar Produto:
-                </h1>
-                <div class="subtitle-block">
-                    <p class="subtitle">{{ produto.nome }} {{ produto.marca }}</p>
-                    <p class="discription">Edite os dados do produto</p>
-                </div>
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'estoque_app/form_edit.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="form">
+        <div class="text-box">
+            <h1>
+                <span class="bar"></span>Editar Produto:
+            </h1>
+            <div class="subtitle-block">
+                <p class="subtitle">{{ produto.nome }} {{ produto.marca }}</p>
+                <p class="discription">Edite os dados do produto</p>
             </div>
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="fields">
-                    <label for="nome">Nome:</label>
-                    <input type="text" id="nome" name="nome" value="{{ produto.nome }}" required>
-                </div>
-                <div class="fields">
-                    <label for="marca">Marca:</label>
-                    <input type="text"
-                           id="marca"
-                           name="marca"
-                           value="{{ produto.marca }}"
-                           required>
-                </div>
-                <div class="fields">
-                    <label for="valor">Valor:</label>
-                    <input type="float"
-                           id="valor"
-                           name="valor"
-                           value="{{ produto.valor }}"
-                           required>
-                </div>
-                <div class="fields">
-                    <label for="quantidade">Quantidade:</label>
-                    <input type="number"
-                           id="quantidade"
-                           name="quantidade"
-                           value="{{ produto.quantidade }}"
-                           required>
-                </div>
-                <div class="fields">
-                    <label for="imagem">Imagem:</label>
-                    <input type="file" id="imagem" name="imagem" accept="image/*">
-                    {% if produto.imagem %}
-                        <br>
-                        <img src="{{ produto.imagem.url }}"
-                             alt="{{ produto.nome }}"
-                             style="max-width:80px;
-                                    max-height:80px">
-                    {% endif %}
-                </div>
-                <br>
-                <button type="submit">Salvar Alterações</button>
-            </form>
-            <br>
-            <a href="{% url 'estoque:lista' %}">Cancelar e voltar para a lista</a>
         </div>
-    </body>
-</html>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="fields">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" value="{{ produto.nome }}" required>
+            </div>
+            <div class="fields">
+                <label for="marca">Marca:</label>
+                <input type="text"
+                       id="marca"
+                       name="marca"
+                       value="{{ produto.marca }}"
+                       required>
+            </div>
+            <div class="fields">
+                <label for="valor">Valor:</label>
+                <input type="float"
+                       id="valor"
+                       name="valor"
+                       value="{{ produto.valor }}"
+                       required>
+            </div>
+            <div class="fields">
+                <label for="quantidade">Quantidade:</label>
+                <input type="number"
+                       id="quantidade"
+                       name="quantidade"
+                       value="{{ produto.quantidade }}"
+                       required>
+            </div>
+            <div class="fields">
+                <label for="imagem">Imagem:</label>
+                <input type="file" id="imagem" name="imagem" accept="image/*">
+                {% if produto.imagem %}
+                    <br>
+                    <img src="{{ produto.imagem.url }}"
+                         alt="{{ produto.nome }}"
+                         style="max-width:80px;
+                                max-height:80px">
+                {% endif %}
+            </div>
+            <br>
+            <button type="submit">Salvar Alterações</button>
+        </form>
+        <br>
+        <a href="{% url 'estoque:lista' %}">Cancelar e voltar para a lista</a>
+    </div>
+{% endblock %}
