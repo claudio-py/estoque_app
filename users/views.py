@@ -54,3 +54,4 @@ class Excluir(AdminRequiredMixin, DeleteView):
 
         response = super().post(request, *args, **kwargs)
         return redirect("users:list")
+

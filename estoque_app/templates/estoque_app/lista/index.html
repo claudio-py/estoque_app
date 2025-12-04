@@ -9,15 +9,13 @@
             <!-- Botão para adicionar novo produto (visível apenas para usuários autenticados) -->
             <a href="{% url 'estoque:adicionar' %}"
                style="background-color: #feaf00"
-               class="btn">+ Adicionar Novo Produto</a>
+               class="btn">+ Adicionar Produto</a>
             <!-- Formulário para logout -->
             <form method="post" action="{% url 'users:logout' %}">
                 {% csrf_token %}
                 <button style="background-color: darkred;" type="submit">Logout</button>
                 {% if user.is_superuser %}
-                    <a href="{% url 'users:list' %}"
-                       class="btn"
-                       style="background-color:#feaf00">Lista de Usuários</a>
+                    <a href="{% url 'users:list' %}" class="btn list-btn">Lista de Usuários</a>
                 {% endif %}
             </form>
         {% else %}

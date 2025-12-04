@@ -14,11 +14,7 @@
             <form method="post" action="{% url 'users:logout' %}">
                 {% csrf_token %}
                 <button style="background-color: darkred;" type="submit">Logout</button>
-                {% if user.is_superuser %}
-                    <a href="{% url 'estoque:lista' %}"
-                       class="btn"
-                       style="background-color:#feaf00">Lista de Produtos</a>
-                {% endif %}
+                <a href="{% url 'estoque:lista' %}" class="btn list-btn">Lista de Produtos</a>
             </form>
         {% else %}
             <!-- Botão de adicionar produto desabilitado para usuários não autenticados -->
@@ -44,16 +40,18 @@
     </thead>
     <tbody>
         {% for u in users %}
-            <tr>
-                <td>{{ u.id }}</td>
-                <td>{{ u.username }}</td>
-                <td class="actions">
-                    <a href="#"
-                       onclick="openDeleteModal('{{ u.id }}', '{{ u.username }}'); return false;">
-                        <img src="{% static 'estoque_app/img/trash.svg' %}">
-                    </a>
-                </td>
-            </tr>
+            {% if not u.is_superuser %}
+                <tr>
+                    <td>{{ u.id }}</td>
+                    <td>{{ u.username }}</td>
+                    <td class="actions">
+                        <a href="#"
+                           onclick="openDeleteModal('{{ u.id }}', '{{ u.username }}'); return false;">
+                            <img src="{% static 'estoque_app/img/trash.svg' %}">
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
         {% empty %}
             <tr>
                 <td colspan="3">Nenhum usuário encontrado.</td>
