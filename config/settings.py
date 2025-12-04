@@ -26,8 +26,10 @@ SECRET_KEY = "django-insecure-yq#95@brvlt8s93u#zzoupf@)bkn)5!@jxoaf#5ou8p3%8ps*^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['judgeable-astoundedly-shanika.ngrok-free.dev','localhost','127.0.0.1']
+CSRF_TRUSTED_ORIGINS = [
+    'https://judgeable-astoundedly-shanika.ngrok-free.dev',
+]
 
 # Application definition
 
@@ -58,7 +60,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR/'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -121,6 +123,9 @@ USE_TZ = True
 STATIC_URL = "static/"
 MEDIA_URL = "media/" 
 MEDIA_ROOT = BASE_DIR / "media"
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 

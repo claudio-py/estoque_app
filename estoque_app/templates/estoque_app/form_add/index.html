@@ -1,66 +1,61 @@
+{% extends "base_form.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <title>Formulário de produto</title>
-        <!-- Carrega o arquivo de estilos CSS para o formulário de adição de produto -->
-        <link rel="stylesheet" href="{% static 'estoque_app/form_add.css' %}">
-    </head>
-    <body>
-        <div class="form">
-            <div class="text-box">
-                <div class="h1-box">
-                    <h1 class="title">
-                        <span class="bar"></span>
-                        <!-- Título principal do formulário -->
-                        Adicionar
-                    </h1>
-                </div>
-                <div class="subtitle-block">
-                    <!-- Subtítulo e descrição do formulário -->
-                    <p class="subtitle">Produto</p>
-                    <p class="discription">Digite os dados do novo produto</p>
-                </div>
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'estoque_app/form_add.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="form">
+        <div class="text-box">
+            <div class="h1-box">
+                <h1 class="title">
+                    <span class="bar"></span>
+                    <!-- Título principal do formulário -->
+                    Adicionar
+                </h1>
             </div>
-            <!-- Formulário para adicionar novo produto ao estoque -->
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="fields">
-                    <!-- Campo para nome do produto -->
-                    <label for="nome">Nome</label>
-                    <input type="text" id="nome" name="nome" required>
-                </div>
-                <div class="fields">
-                    <!-- Campo para marca do produto -->
-                    <label for="marca">Marca</label>
-                    <input type="text" id="marca" name="marca" required>
-                </div>
-                <div class="fields">
-                    <!-- Campo para valor do produto -->
-                    <label for="valor">Valor</label>
-                    <input type="float" id="valor" name="valor" required>
-                </div>
-                <div class="fields">
-                    <!-- Campo para quantidade do produto -->
-                    <label for="quantidade">Quantidade</label>
-                    <input type="quantidade" id="quantidade" name="quantidade" required>
-                </div>
-                <div class="fields">
-                    <!-- Campo para upload de imagem do produto -->
-                    <label for="imagem">Imagem</label>
-                    <input type="file"
-                           id="imagem"
-                           name="imagem"
-                           accept="image/*"
-                           capture="environment">
-                </div>
-                <!-- Botão para salvar o novo produto -->
-                <button type="submit">Salvar</button>
-            </form>
-            <br>
-            <!-- Link para cancelar e voltar para a lista de produtos -->
-            <a href="{% url 'estoque:lista' %}">Cancelar e voltar para a lista</a>
+            <div class="subtitle-block">
+                <!-- Subtítulo e descrição do formulário -->
+                <p class="subtitle">Produto</p>
+                <p class="discription">Digite os dados do novo produto</p>
+            </div>
         </div>
-    </body>
-</html>
+        <!-- Formulário para adicionar novo produto ao estoque -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="fields">
+                <!-- Campo para nome do produto -->
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            <div class="fields">
+                <!-- Campo para marca do produto -->
+                <label for="marca">Marca</label>
+                <input type="text" id="marca" name="marca" required>
+            </div>
+            <div class="fields">
+                <!-- Campo para valor do produto -->
+                <label for="valor">Valor</label>
+                <input type="float" id="valor" name="valor" required>
+            </div>
+            <div class="fields">
+                <!-- Campo para quantidade do produto -->
+                <label for="quantidade">Quantidade</label>
+                <input type="quantidade" id="quantidade" name="quantidade" required>
+            </div>
+            <div class="fields">
+                <!-- Campo para upload de imagem do produto -->
+                <label for="imagem">Imagem</label>
+                <input type="file"
+                       id="imagem"
+                       name="imagem"
+                       accept="image/*"
+                       capture="environment">
+            </div>
+            <!-- Botão para salvar o novo produto -->
+            <button type="submit">Salvar</button>
+        </form>
+        <br>
+        <!-- Link para cancelar e voltar para a lista de produtos -->
+        <a href="{% url 'estoque:lista' %}">Cancelar e voltar para a lista</a>
+    </div>
+{% endblock %}
