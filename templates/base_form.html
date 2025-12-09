@@ -1,14 +1,16 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <title>{% block title%}{% endblock %}</title>
-<link rel="stylesheet" href="{% static 'base_form/styles.css' %}"
-    <!-- Carrega o arquivo de estilos CSS para o formulário de adição de produto -->
-    {% block extra_css%}{% endblock %}
-  </head>
-  <body>
-    {% block content%} {% endblock %}
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <title>
+            {% block title %}{% endblock %}
+        </title>
+        <link rel="stylesheet" href="{% static 'base_form/styles.css' %}">
+        {% block extra_css %}{% endblock %}
+    </head>
+    <body>
+        {% include "include/base_nav.html" %}
+        {% block content %}{% endblock %}
+    </body>
 </html>

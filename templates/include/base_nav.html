@@ -1,0 +1,54 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'base_nav/css/styles.css' %}" />
+<nav class="side-menu">
+    <div>
+        <div class= "title-box">
+            <h1 class="title">
+                <span class="bar"></span>
+                Estoque App
+            </h1>
+        </div>
+        <div class="profile-box">
+            {% if user.image %}
+                <!-- Exibe a imagem do produto, se houver -->
+                <img src="{{ user.image.url }}">
+            {% else %}
+                <!-- Mensagem caso o produto não tenha imagem -->
+                <span>Sem imagem</span>
+            {% endif %}
+            <h2>{{ user.username }}</h2>
+            <p>nivel de acesso</p>
+        </div>
+        <ul>
+            <li>
+                <a href="#">
+                    <img src="{% static 'base_nav/img/home.svg' %}">
+                    Painel
+                </a>
+            </li>
+            {% if user.is_superuser %}
+                <li>
+                    <a href="{% url 'users:list' %}">
+                        <img src="{% static 'base_nav/img/user.svg' %}">
+                    Usuários</a>
+                </li>
+            {% endif %}
+            <li>
+                <a href="{% url 'estoque:lista' %}">
+                    <img src="{% static 'base_nav/img/box.svg' %}">
+                Produtos</a>
+            </li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="logout-link">
+        <form method="post" action="{% url 'users:logout' %}">
+            {% csrf_token %}
+            <button type="submit">
+                Logout
+                <img src="{% static 'base_nav/img/logout.svg' %}">
+            </button>
+        </form>
+    </div>
+</nav>
+<script src="{% static 'base_nav/js/script.js' %}"></script>

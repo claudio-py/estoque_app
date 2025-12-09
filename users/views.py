@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView, LogoutView
-from django.views.generic import FormView, ListView, DeleteView
+from django.views.generic import FormView, ListView, DeleteView,UpdateView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib.auth import get_user_model
-from .forms import RegisterUserForm, CustomLoginForm
+from .forms import RegisterUserForm, CustomLoginForm, EditUserForm
 
 User = get_user_model()
 
@@ -29,12 +29,15 @@ class Register(AdminRequiredMixin, FormView):
     form_class = RegisterUserForm
 
     def form_valid(self, form):
-        user = form.save()
-        if user:
-            context = self.get_context_data(form=self.form_class())
-            context["registered"] = True
-            return self.render_to_response(context)
-        return self.form_invalid(form)
+      user = form.save(commit=False)
+      user.image = form.cleaned_data.get("image")
+      user.save()
+      if user:
+        context = self.get_context_data(form=self.form_class())
+        context["registered"] = True
+        return self.render_to_response(context)
+
+      return self.form_invalid(form)
 
 
 class List(AdminRequiredMixin, ListView):
@@ -55,3 +58,11 @@ class Excluir(AdminRequiredMixin, DeleteView):
         response = super().post(request, *args, **kwargs)
         return redirect("users:list")
 
+class Edit(AdminRequiredMixin, UpdateView):
+    model = User
+    form_class = EditUserForm
+    template_name = "users/edit/index.html"
+    context_object_name = "user_obj"
+
+    def get_success_url(self):
+        return reverse_lazy("users:list")

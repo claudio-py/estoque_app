@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="{% static 'base_list/css/styles.css' %}" {% block extra_css %}{% endblock %}
         </head>
         <body>
+            {% include "include/base_nav.html" %}
             {% block content %}{% endblock %}
             {% block modal_permition %}{% endblock %}
             {% include "include/base_modal.html" %}

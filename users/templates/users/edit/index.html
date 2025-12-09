@@ -1,0 +1,33 @@
+{% extends "base_form.html" %}
+{% block content %}
+    <div class="form">
+        <div class="text-box">
+            <h1 class = "title">
+                <span class="bar"></span>Editar Usuario:
+            </h1>
+            <div class="subtitle-block">
+                <p class="subtitle">{{ user.username }}</p>
+                <p class="discription">Edite os dados do Usuário</p>
+            </div>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="fields">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+            <div class="fields">
+                {% if user_obj.image %}
+                    <img src="{{ user_obj.image.url }}"
+                         style="height: 80px;
+                                display:block;
+                                margin-bottom:10px">
+                {% endif %}
+                {{ form.image.label_tag }}
+                {{ form.image }}
+            </div>
+            <button type="submit">Salvar ALterações</button>
+        </form>
+    </div>
+{% endblock %}

@@ -10,22 +10,6 @@
             <a href="{% url 'users:register' %}"
                style="background-color: #feaf00"
                class="btn">+ Registrar Usuário</a>
-            <!-- Formulário para logout -->
-            <form method="post" action="{% url 'users:logout' %}">
-                {% csrf_token %}
-                <button style="background-color: darkred;" type="submit">Logout</button>
-                <a href="{% url 'estoque:lista' %}" class="btn list-btn">Lista de Produtos</a>
-            </form>
-        {% else %}
-            <!-- Botão de adicionar produto desabilitado para usuários não autenticados -->
-            <a href="{% url 'users:login' %}"
-               style="background-color: grey;
-                      opacity:.3"
-               class="btn">+ Adicionar Novo Produto</a>
-            <!-- Botão para login -->
-            <a href="{% url 'users:login' %}">
-                <button style="background-color: darkgreen;" type="button">Login</button>
-            </a>
         {% endif %}
     </div>
     <hr>
@@ -33,8 +17,9 @@
 <table>
     <thead>
         <tr>
+            <th>imagem</th>
+            <th>username</th>
             <th>ID</th>
-            <th>Username</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -42,12 +27,27 @@
         {% for u in users %}
             {% if not u.is_superuser %}
                 <tr>
-                    <td>{{ u.id }}</td>
+                    <td style= "padding:0;">
+                        {% if u.image %}
+                            <!-- Exibe a imagem do produto, se houver -->
+                            <img src="{{ u.image.url }}"
+                                 alt="{{ u.name }}"
+                                 style="max-width:80px;
+                                        max-height:80px">
+                        {% else %}
+                            <!-- Mensagem caso o produto não tenha imagem -->
+                            <span>Sem imagem</span>
+                        {% endif %}
+                    </td>
                     <td>{{ u.username }}</td>
+                    <td>{{ u.id }}</td>
                     <td class="actions">
                         <a href="#"
                            onclick="openDeleteModal('{{ u.id }}', '{{ u.username }}'); return false;">
-                            <img src="{% static 'estoque_app/img/trash.svg' %}">
+                            <img src="{% static 'base_list/img/trash.svg' %}">
+                        </a>
+                        <a href="{% url 'users:edit' user.id %}">
+                            <img src="{% static 'base_list/img/pen.svg' %}">
                         </a>
                     </td>
                 </tr>

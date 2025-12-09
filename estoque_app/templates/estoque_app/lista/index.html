@@ -11,23 +11,6 @@
                style="background-color: #feaf00"
                class="btn">+ Adicionar Produto</a>
             <!-- Formulário para logout -->
-            <form method="post" action="{% url 'users:logout' %}">
-                {% csrf_token %}
-                <button style="background-color: darkred;" type="submit">Logout</button>
-                {% if user.is_superuser %}
-                    <a href="{% url 'users:list' %}" class="btn list-btn">Lista de Usuários</a>
-                {% endif %}
-            </form>
-        {% else %}
-            <!-- Botão de adicionar produto desabilitado para usuários não autenticados -->
-            <a href="{% url 'users:login' %}"
-               style="background-color: grey;
-                      opacity:.3"
-               class="btn">+ Adicionar Novo Produto</a>
-            <!-- Botão para login -->
-            <a href="{% url 'users:login' %}">
-                <button style="background-color: darkgreen;" type="button">Login</button>
-            </a>
         {% endif %}
     </div>
     <hr>
@@ -68,12 +51,12 @@
                     {% if user.is_authenticated %}
                         <!-- Botão para editar produto -->
                         <a href="{% url 'estoque:editar' produto.id %}">
-                            <img src="{% static 'estoque_app/img/pen.svg' %}">
+                            <img src="{% static 'base_list/img/pen.svg' %}">
                         </a>
                         <!-- Botão para excluir produto (abre modal de confirmação) -->
                         <a href="#"
                            onclick="openDeleteModal('{{ produto.id }}', '{{ produto.nome }}'); return false;">
-                            <img src="{% static 'estoque_app/img/trash.svg' %}">
+                            <img src="{% static 'base_list/img/trash.svg' %}">
                         </a>
                     {% else %}
                         <!-- Mensagem para usuários não autenticados -->

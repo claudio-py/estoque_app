@@ -10,6 +10,27 @@ body {
   margin-bottom: 15px;
 }
 
+.title {
+  font-size: 2rem;
+  /* your h1 size */
+  line-height: 1.2;
+  /* typical line-height */
+  display: flex;
+  /* so the bar aligns to the text height */
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.title .bar {
+  width: 5px;
+  /* thickness of the rectangle */
+  height: 50px;
+  /* matches the height of the h1 line box */
+  background: linear-gradient(71.17deg, #FEAF00 19.35%, #F8D442 90.12%);
+  display: inline-block;
+  /* border: 1px, solid, red; */
+}
+
 table {
   width: 100%;
   /* border-collapse: collapse; */
@@ -67,8 +88,9 @@ hr {
 
 .btn-box {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   align-items: center;
+
 }
 
 .btn-box * button {

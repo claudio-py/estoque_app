@@ -8,4 +8,5 @@ urlpatterns = [
     path("register/", Register.as_view(), name="register"),
     path("list/", List.as_view(), name="list"),
     path("excluir/<int:pk>/", Excluir.as_view(), name="excluir"),
+    path("edit/<int:pk>/", Edit.as_view(), name="edit"),
 ]
