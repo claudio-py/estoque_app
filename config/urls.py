@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
 urlpatterns = [
-path("", RedirectView.as_view(pattern_name="estoque:lista", permanent=False)),
+path("", RedirectView.as_view(pattern_name="estoque:panel", permanent=False)),
     path("admin/", admin.site.urls),
     path("estoque/", include("estoque_app.urls")),
     path("users/", include("users.urls")),

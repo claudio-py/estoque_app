@@ -8,20 +8,33 @@
         <link rel="stylesheet" href="{% static 'estoque_app/panel/css/styles.css' %}" {% block extra_css %}{% endblock %}
         </head>
         <body>
-            <h1>PAINEL</h1>
             <div class="card-box">
-                <div class="card">
-                    <img src="{% static 'estoque_app/panel/img/userblue.svg' %}"
-                         alt="Seta para direita">
-                    <p>Usuários</p>
-                    <p>{{ user_count }}</p>
-                </div>
-                <div class="card">
-                    <img src="{% static 'estoque_app/panel/img/boxblue.svg' %}"
-                         alt="Seta para direita">
-                    <p>produtos</p>
-                    <p>{{ produto_count }}</p>
-                </div>
+                {% if user.is_superuser %}
+                    <a href="{% url 'users:list' %}">
+                        <div class="card">
+                            <div class='card-title'>
+                                <img src="{% static 'estoque_app/panel/img/userblue.svg' %}"
+                                     alt="Seta para direita">
+                                <p>Usuários</p>
+                            </div>
+                            <div class="counter">
+                                <p>{{ user_count }}</p>
+                            </div>
+                        </div>
+                    </a>
+                {% endif %}
+                <a href="{% url 'estoque:lista' %}">
+                    <div class="card">
+                        <div class="card-title">
+                            <img src="{% static 'estoque_app/panel/img/boxblue.svg' %}"
+                                 alt="Seta para direita">
+                            <p>produtos</p>
+                        </div>
+                        <div class="counter">
+                            <p>{{ produto_count }}</p>
+                        </div>
+                    </div>
+                </a>
             </div>
             {% include "include/base_nav.html" %}
         </body>

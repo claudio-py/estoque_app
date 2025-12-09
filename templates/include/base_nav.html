@@ -17,7 +17,11 @@
                 <span>Sem imagem</span>
             {% endif %}
             <h2>{{ user.username }}</h2>
-            <p>nivel de acesso</p>
+            {% if user.is_superuser %}
+                <p>Gerente</p>
+            {% else %}
+                <p>Estoquista</p>
+            {% endif %}
         </div>
         <ul>
             <li>

@@ -4,11 +4,32 @@ body {
   background-color: #f8f8f8;
 }
 
-.card-box {
-  border: 1px solid red;
+.title {
+  font-size: 2rem;
+  /* your h1 size */
+  line-height: 1.2;
+  /* typical line-height */
   display: flex;
-  justify-content: space-around;
+  /* so the bar aligns to the text height */
   align-items: center;
+  gap: 0.5rem;
+}
+
+.title .bar {
+  width: 5px;
+  /* thickness of the rectangle */
+  height: 50px;
+  /* matches the height of the h1 line box */
+  background: linear-gradient(71.17deg, #FEAF00 19.35%, #F8D442 90.12%);
+  display: inline-block;
+  /* border: 1px, solid, red; */
+}
+
+.card-box {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 20px;
 }
 
 .card {
@@ -16,4 +37,27 @@ body {
   min-height: 158px;
   background: linear-gradient(180deg, #FEAF00 0%, #F8D442 100%);
   border-radius: 8px;
+}
+
+.card>*>* {
+  margin: 10px;
+}
+
+.card-title p {
+  color: #6C6C6C;
+}
+
+
+.card .counter {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  font-weight: bold;
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.card-box a {
+  text-decoration: none;
 }
