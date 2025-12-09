@@ -6,7 +6,7 @@
                 <span class="bar"></span>Editar Usuario:
             </h1>
             <div class="subtitle-block">
-                <p class="subtitle">{{ user.username }}</p>
+                <p class="subtitle">{{ user_obj.username }}</p>
                 <p class="discription">Edite os dados do Usuário</p>
             </div>
         </div>
@@ -18,16 +18,18 @@
                 {{ form.username }}
             </div>
             <div class="fields">
-                {% if user_obj.image %}
-                    <img src="{{ user_obj.image.url }}"
-                         style="height: 80px;
-                                display:block;
-                                margin-bottom:10px">
-                {% endif %}
-                {{ form.image.label_tag }}
+                <label for="{{ form.image.id_for_label }}">Imagem:</label>
                 {{ form.image }}
+                {% if user_obj.image %}
+                    <br>
+                    <img src="{{ user_obj.image.url }}"
+                         alt="{{ user_obj.username }}"
+                         style="max-width:80px;
+                                max-height:80px">
+                {% endif %}
             </div>
-            <button type="submit">Salvar ALterações</button>
+            <br>
+            <button type="submit">Salvar Alterações</button>
         </form>
     </div>
 {% endblock %}

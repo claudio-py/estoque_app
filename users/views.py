@@ -52,10 +52,17 @@ class Excluir(AdminRequiredMixin, DeleteView):
     success_url = reverse_lazy("users:list")
 
     def post(self, request, *args, **kwargs):
-        if request.user.id == int(kwargs["pk"]):
+        user = self.get_object()
+
+        # prevent self-deletion
+        if request.user.id == user.id:
             return redirect("users:list")
 
-        response = super().post(request, *args, **kwargs)
+        # delete the image file before removing the record
+        if user.image:
+            user.image.delete(save=False)
+
+        user.delete()
         return redirect("users:list")
 
 class Edit(AdminRequiredMixin, UpdateView):
@@ -64,5 +71,31 @@ class Edit(AdminRequiredMixin, UpdateView):
     template_name = "users/edit/index.html"
     context_object_name = "user_obj"
 
+    def form_valid(self, form):
+        # keep a reference to the existing image (if any)
+        old_image = None
+        try:
+            old_image = self.get_object().image
+        except Exception:
+            old_image = None
+
+        # new image (may be None)
+        new_image = form.cleaned_data.get("image")
+
+        # Let UpdateView/form save the instance (this writes the new file)
+        response = super().form_valid(form)
+
+        # After save: if there was an old image and it's different from the saved one — remove it
+        try:
+            new_saved_image = self.object.image
+        except Exception:
+            new_saved_image = None
+
+        if old_image and new_saved_image and old_image.name != new_saved_image.name:
+            # delete old file from storage (do not save the model)
+            old_image.delete(save=False)
+
+        return response
+
     def get_success_url(self):
-        return reverse_lazy("users:list")
+        return reverse_lazy("users:list")

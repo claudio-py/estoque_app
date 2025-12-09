@@ -52,7 +52,10 @@ class RegisterUserForm(UserCreationForm):
 
 class EditUserForm(UserChangeForm):
     password = None  # oculta campo password padrão do Django
-
+    image = forms.ImageField(
+        required=False,
+        widget=forms.FileInput(attrs={"accept": "image/*"})
+    )
     class Meta:
         model = User
         fields = ["username", "image"]
