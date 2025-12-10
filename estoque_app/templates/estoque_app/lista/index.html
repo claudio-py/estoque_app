@@ -33,10 +33,9 @@
                 <td style= "padding:0;">
                     {% if produto.imagem %}
                         <!-- Exibe a imagem do produto, se houver -->
-                        <img src="{{ produto.imagem.url }}"
-                             alt="{{ produto.nome }}"
-                             style="max-width:80px;
-                                    max-height:80px">
+                        <img class="obj-img"
+                             src="{{ produto.imagem.url }}"
+                             alt="{{ produto.nome }}">
                     {% else %}
                         <!-- Mensagem caso o produto não tenha imagem -->
                         <span>Sem imagem</span>

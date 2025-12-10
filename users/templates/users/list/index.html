@@ -19,6 +19,7 @@
         <tr>
             <th>imagem</th>
             <th>username</th>
+            <th>Cargo</th>
             <th>ID</th>
             <th>Ações</th>
         </tr>
@@ -29,27 +30,31 @@
                 <td style= "padding:0;">
                     {% if u.image %}
                         <!-- Exibe a imagem do produto, se houver -->
-                        <img src="{{ u.image.url }}"
-                             alt="{{ u.name }}"
-                             style="max-width:80px;
-                                    max-height:80px">
+                        <img class="obj-img" src="{{ u.image.url }}" alt="{{ u.name }}">
                     {% else %}
                         <!-- Mensagem caso o produto não tenha imagem -->
                         <span>Sem imagem</span>
                     {% endif %}
                 </td>
                 <td>{{ u.username }}</td>
+                <td>
+                    {% if u.is_superuser %}
+                        <p>Gerente</p>
+                    {% else %}
+                        <p>Estoquista</p>
+                    {% endif %}
+                </td>
                 <td>{{ u.id }}</td>
                 <td class="actions">
+                    <a href="{% url 'users:edit' u.id %}">
+                        <img src="{% static 'base_list/img/pen.svg' %}">
+                    </a>
                     {% if not u.is_superuser %}
                         <a href="#"
                            onclick="openDeleteModal('{{ u.id }}', '{{ u.username }}'); return false;">
                             <img src="{% static 'base_list/img/trash.svg' %}">
                         </a>
                     {% endif %}
-                    <a href="{% url 'users:edit' u.id %}">
-                        <img src="{% static 'base_list/img/pen.svg' %}">
-                    </a>
                 </td>
             </tr>
         {% empty %}

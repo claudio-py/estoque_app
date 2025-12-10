@@ -39,6 +39,11 @@ table {
   /* horizontal | vertical spacing */
 }
 
+img.obj-img {
+  max-width: 80px;
+  max-height: 80px;
+}
+
 thead th {
   border: none;
   color: slategray;
@@ -46,15 +51,17 @@ thead th {
 
 th,
 td {
-  border: 1px solid #ccc;
-  padding: 10px;
+  /* border: 1px solid #ccc; */
+  /* padding: 10px; */
   text-align: center;
+  min-height: 50px;
 }
 
 td.actions {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  height: 100%;
 }
 
 tbody td {
