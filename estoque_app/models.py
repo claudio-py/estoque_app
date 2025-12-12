@@ -3,8 +3,8 @@ from django.db import models
 
 # Modelos do aplicativo de estoque
 class Produto(models.Model):
-    nome = models.CharField(max_length=10, unique=True)
-    marca = models.CharField(max_length=10, unique=True)
+    nome = models.CharField(max_length=30)
+    marca = models.CharField(max_length=30)
     valor = models.FloatField()
     quantidade = models.IntegerField()
     imagem = models.ImageField(upload_to="produtos/", blank=True, null=True)
